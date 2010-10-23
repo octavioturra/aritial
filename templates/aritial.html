@@ -1,0 +1,55 @@
+<article class="grid_12">
+    <h4>Converse com Aritial </h4>
+    <output class="grid_6" id="outAritial">
+    </output>
+    <form action="#aritial" id="frmClient">
+        <frameset class="grid_4">
+            <menu type="toolbar" label="Opções">
+                <li><a href="{{logoff}}">Sair</a></li>
+            </menu>
+            <label for="txtConversa" class="grid_5">
+                Mensagem:
+                <textarea name="conversa" id="txtConversa" cols="30" rows="10"></textarea>
+            </label>
+            <input type="hidden" id="secKey" value="{{key}}"/>
+            <button>Enviar</button>
+            <script type="text/javascript">
+                var ajax = new XMLHttpRequest()
+                var aritialResp = function(value){
+                  $("outAritial").innerHTML += value;
+                }
+                var getResp = function(content){
+                    ajax.open("POST","clientSend",false);
+                    ajax.onreadystatechange = function(){
+                        if(ajax.readyState==4 && ajax.status == 200){
+                            aritialResp(ajax.responseText);
+                        }
+                    }
+                    if(content){
+                        ajax.send("content="+content.replace(" ","+"));
+                        $("txtConversa").value = "";
+                    }else
+                        ajax.send();
+                }
+                window.addEvent("domready",function(){
+                    getResp();
+                })
+                $("frmClient").addEvent("submit",function(){
+                    var content = $("txtConversa").value;
+                    if(content.length>3)
+                        getResp(content);
+                    else
+                        alert("Digite um Texto")
+                    return false;
+                })
+            </script>
+        </frameset>
+    </form>
+    <form action="study" method="post" enctype="multipart/form-data">
+        <frameset>
+            <label for="book" class="grid_5">Livro:<input type="file" id="book" name="livro"/></label>
+            <br />
+            <button type="submit">Ensinar</button>
+        </frameset>
+    </form>
+</article>

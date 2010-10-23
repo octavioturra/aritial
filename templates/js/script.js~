@@ -1,0 +1,32 @@
+var loadPage = function(){
+    var page = location.hash.replace("#","")||"home"
+    var ajax = new Request.HTML({
+        url: page,
+        update: 'main',
+        evalScripts: true,
+        evalResponse: true
+    })
+    ajax.send();
+
+}
+
+var system = function(action){
+    switch(action){
+        case 'entrar':
+            sessionStorage["status"] == true;
+            location.hash="#aritial"
+        break;
+        case 'sair':
+            sessionStorage["status"] == false;
+            location.hash="#home"
+        break;
+        default:break;
+    }
+}
+
+window.addEvent('domready',function(){
+    loadPage();
+    window.onhashchange = function(){
+        loadPage();
+    }
+})

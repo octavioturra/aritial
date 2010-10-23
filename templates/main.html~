@@ -1,0 +1,98 @@
+<!Doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="author" content="Solucija (www.solucija.com) & T.Barbosa (fraguto.com.br)" />
+	<link rel="stylesheet" href="css/main.css" type="text/css" />
+	<title>{{title}}</title>
+</head>
+<body>
+	<header>
+		<div class="wrap">
+			<h1><a href="#">{{title}}</a></h1>
+			<cite><br />Bem vindo(a) {{UserName}} -
+			    <a href='{{UserHelper}}'>
+			    {%if UserCon%}
+                    Logout
+			    {%else%}
+                    Login
+                    {{userCon}}
+			    {%endif%}
+			    </a>
+			</cite>
+
+			<menu>
+			    {%for item in menu%}
+			        <li><a {%if item.id == current%}class="current"{%endif%} href="{{item.url}}">{{item.name}}</a></li>
+
+			    {%endfor%}
+			</menu>
+		</div>
+	</header>
+	<div class="wrap">
+		<div id="main">
+		    {%if PageContent%}
+			    {%for item in PageContent%}
+			    <article class="l">
+				    {%if item.title%}<h2>{{item.title}}</h2>{%endif%}
+				    {%if item.subtitle%}<h3>{{item.subtitle}}</h3>{%endif%}
+				    {%if item.plus%}
+				        <img alt="" src="{{item.plus.value}}">
+				    {%endif%}
+				    {%for line in item.article%}
+				        <p>
+				        {{line}}
+				        </p>
+			        {%endfor%}
+			    </article>
+			    {%endfor%}
+			 {%endif%}
+			<article class="r">
+				<h2>Sed ut perspiciatis unde omnis</h2>
+				<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<h2>Nemo enim ipsam voluptatem</h2>
+				<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<h2>Sed ut perspiciatis unde omnis</h2>
+				<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			</article>
+
+			<hr class="line"/>
+
+			<article class="l">
+				<h2>Nemo enim ipsam voluptatem</h2>
+				<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			</article>
+			<article class="r">
+				<h2>Nemo enim ipsam voluptatem</h2>
+				<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<p>
+			</articlhe>
+		</div>
+
+		<aside id="side">
+			<ul>
+				<li><a href="#">Esse cillum dolore</a><br />Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+				<li><a href="#">Esse cillum dolore</a><br />Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+				<li><a href="#">Esse cillum dolore</a><br />Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+				<li><a href="#">Esse cillum dolore</a><br />Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+			</ul>
+		</aside>
+
+		<footer>
+			<dl>
+				<dt>Item group #1</dt>
+				<dd><a href="#">Ut enim ad minim</a></dd>
+				<dd><a href="#">Ut enim ad minim</a></dd>
+				<dd><a href="#">Ut enim ad minim</a></dd>
+			</dl>
+			<dl>
+				<dt>Item group #2</li>
+				<dd><a href="#">Ut enim ad minim</a></dd>
+				<dd><a href="#">Ut enim ad minim</a></dd>
+				<dd><a href="#">Ut enim ad minim</a></dd>
+			</dl>
+			<details>Design de <a href="http://www.solucija.com" title="Free Web Templates">Luka Cvrk</a> - Adaptado por <a href="http://fraguto.com.br">Octo Fraguto</a></a></details>
+		</footer>
+	</div>
+</body>
+</html>

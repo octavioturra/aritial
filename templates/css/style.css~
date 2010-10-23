@@ -1,0 +1,245 @@
+body{
+
+}
+h1{
+    font: 6em georgia, fantasy, serif bold;
+}
+h2{
+    font: 1.3em helvetica, verdana, sans-serif lighter
+
+ }
+h3{
+    font: 1.4em georgia, fantasy, serif bold;
+    margin:10px;
+ }
+h4{
+    font-variant:small-caps;
+    margin-left:10px;
+    margin-bottom:20px;
+}
+hr{
+    height:1px;
+    border:none;
+    border-bottom:2px dotted gray;
+    margin:20px;
+}
+p{
+    padding:4px;
+    font:0.7em verdana, helvetica, sans-serif;
+    text-indent:20px;
+}
+
+a{
+    color:#222;
+    margin:5px;
+}
+nav a:hover{
+    color:black;
+    border-bottom:5px solid black;
+}
+
+small {
+    font-size:0.5em;
+    display:block;
+}
+q{
+    padding-left:20px;
+    text-indent:10px;
+}
+nav a:target{
+    border-bottom:5px solid black;
+}
+
+aside{
+    float:right;
+    padding:40px;
+}
+aside p{
+    font-size: 1.2em;
+    text-align:right;
+    text-indent:20px;
+}
+dl{
+    padding-left:50px;
+    padding-top:20px;
+}
+dt{
+    font:1.8em georgia, impact, serif bold;
+    color:#222;
+}
+dd{
+    margin:15px;
+}
+dd a{
+    color:#500;
+}
+
+strong{
+    font-weight:bold;
+    font-size:1.5em;
+}
+
+em{
+    font: 0.8em verdana, helvetica, sans-serif;
+    font-style:italic;
+}
+
+ol li{
+    list-style:upper-latin;
+    margin:7px;
+    margin-left:50px;
+    font: 0.9em verdana, helvetica, sans-sefif;
+    font-variant:small-caps;
+}
+
+details{
+    font: 0.5em helvetica, verdana, sans-serif bold;
+    letter-spacing:5px;
+    text-align:center;
+    font-variant:small-caps;
+}
+
+article{
+    margin:10px;
+    padding:10px;
+}
+
+/*DESTAQUE*/
+#destaque{
+    position:relative;
+    padding:5px;
+    background:black -webkit-gradient(linear,left top, left bottom,
+               from(transparent), to(rgba(255,255,255,0.1)),color-stop(0.38, transparent),color-stop(0.4,rgba(255,255,255,0.3)));
+    margin:10px;
+    margin-left:8%;
+
+    border:5px solid black;
+    border-radius:5px;
+    -webkit-box-shadow: 0px 0px 15px rgba(0,0,0,0.6);
+}
+#destaque figcaption{
+    position:absolute;
+    top:20px;
+    left:0px;
+    background:rgba(255,255,255,0.6);
+    padding:20px;
+    border-radius:0px 10px 5px 0px;
+}
+#destaque img{
+    border:5px solid black;
+    position:relative;
+    margin-left:10px;
+    margin-right:0px;
+}
+
+footer details:nth-child(2) span{
+    display:none;
+}
+
+/*MODAL*/
+#modal{
+    display:none;
+    position:fixed;
+    height:100%;
+    width:100%;
+    top:0px;
+    left:0px;
+    margin:0px;
+    background:rgba(0,0,0,0.6);
+}
+#modal:target{
+    display:block;
+}
+#modal div{
+    width:45%;
+    height:50%;
+    border:5px solid black;
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    margin:10% auto;
+    position:relative;
+}
+/*FORMULÁRIO*/
+fieldset{
+    display:block;
+    border:none;
+}
+legend{
+    font:1.8em helvetica, verdana, sans-serif lighter;
+}
+label{
+    display:block;
+    width:100%;
+    margin:5px;
+    font: 1.2em verdana, helvetica, serif;
+}
+input, textarea{
+    padding:10px;
+    border:1px solid gray;
+    -webkit-box-shadow: 1px 1px 1px #ccc;
+    width:100%;
+    -webkit-transition: background 200ms;
+    margin:5px;
+    margin-left:15px;
+}
+input:focus, textarea:focus{
+    background:rgba(0,0,0,0.2)
+}
+button{
+    padding:20px;
+    border:1px solid gray;
+    background:-webkit-gradient(linear, left top, left bottom, from(#fff), to(#f6f6f6));
+    font: 1.2em georgia, fantasy, serif bold;
+    float:right;
+    -webkit-box-shadow: inset 0px 0px 2px gray;
+    -webkit-transition: text-shadow  200ms, -webkit-box-shadow 200ms
+}
+button:hover{
+    text-shadow:2px 2px 0px rgba(0,0,0,0.3);
+    -webkit-box-shadow: inset 0px 0px 5px gray;
+}
+button:active{
+    padding-top:25px;
+    padding-bottom:14px;
+    border-top:2px solid gray;
+}
+/*ENTRADA*/
+#entrar figure{
+    padding:20px;
+    border-radius:5px;
+    -webkit-box-shadow:5px 5px 5px rgba(0,0,0,0.2), 3px 3px 3px rgba(0,0,0,0.5), 1px 1px 1px black;
+    display:block;
+    background:black;
+    border:5px solid black;
+    margin-left:36%;
+    position:relative;
+}
+#entrar img{
+    float:left;
+    display:block;
+}
+#entrar figcaption{
+    text-align:center;
+    width:100%;
+    font-size:2.5em;
+    text-transform:uppercase;
+    letter-spacing:-6px;
+    display:block;
+    color:white;
+}
+/*SISTEMA*/
+output{
+    height:360px;
+    padding:20px;
+    background:#ccc;
+    border-radius:10px;
+    border:1px solid black;
+    -webkit-box-shadow: 2px 2px 2px #eee;
+}
+menu li{
+    text-align:right;
+}
+menu li a{
+    color:#600;
+}

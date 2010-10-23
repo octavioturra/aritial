@@ -1,0 +1,7 @@
+<h1>Faça uma visita</h1>
+<a href="{{loginUrl}}" id="entrar">
+    <figure class="grid_2">
+        <img src="" alt="" class="grid_12" height="200"/>
+        <figcaption>Entrar</figcaption>
+    </figure>
+</a>

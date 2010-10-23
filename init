@@ -1,0 +1,3 @@
+#python /home/fraguto/Web/aritial/manage.py startapp m1k7
+python /home/fraguto/Web/aritial/google_appengine/dev_appserver.py /home/fraguto/Web/aritial
+echo "running..."
