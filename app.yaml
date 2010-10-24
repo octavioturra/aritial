@@ -20,4 +20,5 @@ handlers:
   script: main.py
 
 skip_files:
-    ^.*/google_appengine.*^
+    ^.*/google_appengine.*$
+    ^.*\~$

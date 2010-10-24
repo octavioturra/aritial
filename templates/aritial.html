@@ -1,3 +1,4 @@
+<meta charset="utf-8"/>
 <article class="grid_12">
     <h4>Converse com Aritial </h4>
     <output class="grid_6" id="outAritial">
@@ -17,10 +18,11 @@
                 var ajax = new XMLHttpRequest()
                 var aritialResp = function(value){
                   $("outAritial").innerHTML += value;
-                  $("outAritial").scrollByLines(100)
+                  $("outAritial").scrollByLines(100);
                 }
                 var getResp = function(content){
                     ajax.open("POST","clientSend",false);
+                    ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=UTF-8');
                     ajax.onreadystatechange = function(){
                         if(ajax.readyState==4 && ajax.status == 200){
                             aritialResp(ajax.responseText);

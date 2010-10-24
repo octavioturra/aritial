@@ -32,7 +32,6 @@ def fillProfile(content):
     user = users.get_current_user()
     client = db.GqlQuery("SELECT * FROM Cliente WHERE user = :1", user)
     c = client[0]
-    content = force_unicode(content, encoding='utf-8')
     retorno = ""
     if c.nome is None:
         nome = re.findall("(?<=ou )[A-Z]\S+[^., ?]", content)
@@ -62,7 +61,7 @@ def fillProfile(content):
             retorno = " Quantos anos você tem? "
         c.put()
     elif c.profissao is None and c.nome is not None:
-        pro = re.findall("((?<=ou )|(?<=a.o ))[a-z]+[^., ?]", content)
+        pro = re.findall("((?<=ou )|(?<=a.o ))\S+[^., ?]", content)
         if pro:
             pro = pro[0]
             c.profissao = pro
@@ -78,16 +77,16 @@ def fillProfile(content):
         else:
             k = Knowledge()
             k.sender = user
-        k.frases.append(content.encode('utf8'))
+        k.frases.append(content)
         k.put()
-        palavra = re.findall("\S+",content.encode('utf8'))
+        palavra = re.findall("\S+",content)
         retorno = "."
 #        retorno = respAritial(palavra[0])
         i=0
         while i<(len(palavra)-2):
             retorno = respAritial(palavra[i])
             i=i+1
-    return retorno
+    return retorno.decode('utf8')
 
 def getContent(request):
     '''
@@ -102,12 +101,12 @@ def getContent(request):
     try:
         content = request.POST["content"]
         content = content.encode("utf8")
-        value = "<small>%s</small><q>%s</q><small>%s</small><q>%s</q>" % (datetime.today(), content.encode('utf8'), datetime.today(), fillProfile(force_unicode(content, encoding='utf8')))
-    except Exception as e:
+        value = "<small>%s Mim:</small><q>%s</q><small>%s Aritial:</small><q>%s</q>" % (datetime.today(), unicode(content,'utf8'), datetime.today(), fillProfile(content.decode('utf8')))
+    except:# Exception as e:
         if cliente[0].nome is not None:
-            value = "<small>%s</small><q>Oi %s. %s</q> " %(datetime.today(),cliente[0].nome, unicode("Desculpe, não use acentos quando for escrever, por favor...",'utf8'))
+            value = "<small>%s Aritial:</small><q>Oi %s.</q>" %(datetime.today(),cliente[0].nome)#, unicode("Desculpe, não use acentos quando for escrever, por favor...",'utf8'),e)
         else:
-            value = "<small>%s</small><q>Oie, sou Aritial, quem &eacute; você?</q>" %(datetime.today())
+            value = "<small>%s Aritial:</small><q>Oie, sou Aritial, quem &eacute; você?</q>" %(datetime.today())
     return HttpResponse(value)
 
 def respAritial(palavra):
@@ -150,20 +149,29 @@ def study(request):
         Função de estudo que desmembra arquivo TXT e adiciona à base de conhecimento
         do Aritial, bem como o guarda na biblioteca do sistema.
     '''
+    request.encoding = "utf8"
     user = users.get_current_user()
     l = KnowLib()
     if not re.match('.*\.txt',request.FILES['livro'].name):
         return HtmlResponse("Favor apenas enviar arquivos txt <a href='/#aritial'>Voltar</a>")
     content = request.FILES['livro'].read()
+    content = content + " "
     l.value = db.Blob( content )
     l.put()
     frases = re.findall("[^.,?][A-Z][a-z]+[^\.\?]+.",content)
     fraseList = []
     i = 0
+#    import pickle
+#    from sys import getsizeof
     if frases:
-        while fraseList.__sizeof__()<150:
+        total = 0
+        while 1:
             i=i+1
+            total = len(frases[i].decode('utf8'))+total
+            if total > 100:
+                break
             fraseList.append(unicode(frases[i],'utf8'))
+#        return HttpResponse(str(len(pickle.dumps(fraseList,-1)))+"  "+ str(getsizeof(fraseList))+" "+str(total))
         k = Knowledge()
         k.frases = fraseList
         k.sender = user
@@ -171,4 +179,4 @@ def study(request):
         cont = 1
     else:
         cont = 0
-    return HttpResponseRedirect("#aritial")
+    return HttpResponseRedirect("/#aritial")

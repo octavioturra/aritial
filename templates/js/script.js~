@@ -10,21 +10,12 @@ var loadPage = function(){
 
 }
 
-var system = function(action){
-    switch(action){
-        case 'entrar':
-            sessionStorage["status"] == true;
-            location.hash="#aritial"
-        break;
-        case 'sair':
-            sessionStorage["status"] == false;
-            location.hash="#home"
-        break;
-        default:break;
-    }
-}
-
 window.addEvent('domready',function(){
+    if(navigator.vendor!="Google Inc.")
+    {
+        document.write("ESTE É UM EXPERIMENTO GOOGLE CHROME.")
+        document.write("<a href='http://chrome.google.com'>Google Chrome</a>")
+    }
     loadPage();
     window.onhashchange = function(){
         loadPage();
