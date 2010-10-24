@@ -17,6 +17,7 @@
                 var ajax = new XMLHttpRequest()
                 var aritialResp = function(value){
                   $("outAritial").innerHTML += value;
+                  $("outAritial").scrollByLines(100)
                 }
                 var getResp = function(content){
                     ajax.open("POST","clientSend",false);
@@ -47,7 +48,10 @@
     </form>
     <form action="study" method="post" enctype="multipart/form-data">
         <frameset>
-            <label for="book" class="grid_5">Livro:<input type="file" id="book" name="livro"/></label>
+            <label for="book" class="grid_5">Livro:
+                <small>Use arquivos '.txt'</small>
+                <input type="file" id="book" name="livro"/>
+            </label>
             <br />
             <button type="submit">Ensinar</button>
         </frameset>

@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+#-*- coding:utf-8 -*-
+
+lista = ["ovo","caixa","jegue"]
+
+listaSaida = []
+
+def insertInto(innerList):
+    key = 0
+    while key < len(innerList):
+        listaSaida.append(innerList[key])
+        key = key+1
+        yield key
+
+a = insertInto(lista)
+for c in lista:
+    a.next()
+
+print listaSaida

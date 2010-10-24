@@ -45,6 +45,7 @@ small {
 q{
     padding-left:20px;
     text-indent:10px;
+    margin:3px;
 }
 nav a:target{
     border-bottom:5px solid black;
@@ -235,7 +236,8 @@ output{
     background:#ccc;
     border-radius:10px;
     border:1px solid black;
-    -webkit-box-shadow: 2px 2px 2px #eee;
+    -webkit-box-shadow: 2px 2px 2px #222;
+    overflow-x:auto;
 }
 menu li{
     text-align:right;

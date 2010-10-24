@@ -234,9 +234,10 @@ output{
     height:360px;
     padding:20px;
     background:#ccc;
-    border-radius:10px;
+    border-radius:10px 0px 0px 10px;
     border:1px solid black;
-    -webkit-box-shadow: 2px 2px 2px #eee;
+    -webkit-box-shadow: 2px 2px 2px #222;
+    overflow-x:auto;
 }
 menu li{
     text-align:right;

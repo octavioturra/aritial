@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Entrada!!</title>
+    <style type="text/css">
+        body{
+            font:14px arial, helvetica, sans-serif;
+            background:#666;
+        }
+        h1{
+            font:54px impact, "arial black", sans-serif bold;
+            letter-spacing:-3px;
+            margin-bottom:0px;
+        }
+        h2{
+            font:22px arial, helvetica, sans-serif lighter;
+            letter-spacing:5px;
+            margin-top:0px;
+            color: #eee;
+        }
+        fieldset{
+            width:200px;
+            height:100px;
+            padding:20px;
+            position:absolute;
+            left:0px;
+            right:0px;
+            top:0px;
+            bottom:0px;
+            margin:auto;
+            border:1px outset;
+            background:white;
+        }
+        legend{
+            padding:5px;
+            margin-left:-21px;
+            text-transform: Uppercase;
+            background:white;
+            letter-spacing:3px;
+        }
+        small{
+            color:gray;
+            font:10px arial;
+            float:right;
+        }
+        input{
+            display:block;
+            border:1px solid;
+            width:100%;
+            margin-top:5px;
+        }
+        input:focus{
+            color:white;
+            background:#666;
+        }
+        button{
+            display:block;
+            margin:15px auto;
+            position:relative;
+            left:0px;
+            right:0px;
+            width:80px;
+            height:30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mensageria Fraguto</h1>
+    <h2>Conectando o impossível!!!</h2>
+	<form action="/index" method="get">
+	    <fieldset>
+	        <legend>Login:</legend>
+	        <label for="user">Nome:
+	        <small>Digite um nome de usuário</small>
+	        <input type="text" name="user" id="user"/></label>
+	        <button>Entrar</button>
+	    </fieldset>
+	</form>
+</body>
+</html>

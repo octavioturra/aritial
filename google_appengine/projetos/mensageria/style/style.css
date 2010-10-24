@@ -1,0 +1,82 @@
+*{
+    margin:0;
+    padding:0;
+    list-style:none;
+    text-decoration:none;
+}
+body{
+    background:#eee;
+    font: 14px helvetica, verdana, sans-serif lighter;
+}        h1{
+
+        }
+        h2{
+
+        }
+h1{
+            font:54px impact, "arial black", sans-serif bold;
+            letter-spacing:-3px;
+            margin-bottom:0px;
+}
+h2{
+            font:22px arial, helvetica, sans-serif lighter;
+            letter-spacing:5px;
+            margin-top:-50px;
+            color: #000;
+            float:right;
+}
+a{
+    float:right;
+    margin-top:-20px;
+    margin-right:10px;
+    color:red;
+    font:12px arial, helvetica, sans-serif bold;
+}
+#wrapper{
+    width:800px;
+    height:100%;
+    position:absolute;
+    left:50%;
+    top:0px;
+    margin-left:-400px;
+}
+#wrapper iframe{
+    width:100%;
+    height:400px;
+    position:absolute;
+    margin:5px auto;
+    border:1px solid;
+}
+#wrapper fieldset{
+    height:70px;
+    background:#fff;
+    position:absolute;
+    bottom:50px;
+    width:80%;
+    left:0px;
+    right:0px;
+    margin:auto;
+    padding:20px;
+    display:block;
+    border:1px solid;
+}
+#wrapper fieldset legend{
+    text-transform:uppercase;
+    font: 15px  verdana, helvetica,sans-serif;
+}
+#wrapper fieldset input{
+    display:block;
+    width:80%;
+    border:1px solid;
+    background:transparent;
+}
+#wrapper fieldset input:focus{
+    background:#aaa;
+    color:white;
+}
+#wrapper fieldset button{
+    border:1px solid;
+    margin:5px;
+    padding:5px;
+    float:right;
+}

@@ -47,7 +47,10 @@
     </form>
     <form action="study" method="post" enctype="multipart/form-data">
         <frameset>
-            <label for="book" class="grid_5">Livro:<input type="file" id="book" name="book"/></label>
+            <label for="book" class="grid_5">Livro:
+                <small>Use arquivos '.txt'</small>
+                <input type="file" id="book" name="livro"/>
+            </label>
             <br />
             <button type="submit">Ensinar</button>
         </frameset>

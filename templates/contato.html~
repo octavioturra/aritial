@@ -14,9 +14,9 @@
 <script type="text/javascript">
     $("ctt").onsubmit = function(){
         var ajax = new XMLHttpRequest();
-        var nome = $("name").value
-        var mail = $("mail").value
-        var corpo = $("corpo").value
+        var nome = $("name").value;
+        var mail = $("mail").value;
+        var corpo = $("corpo").value;
         ajax.open("POST","email",false);
         ajax.onreadystatechange = function(){
             if(ajax.readyState==4 && ajax.status==200)
@@ -25,9 +25,9 @@
             }
         }
         if(nome.length>3 && mail.test(".*@[a-z]+\.[a-z]+(\.[a-z]+)?") && corpo.length>3)
-            ajax.send("nome="+nome+"mail="+mail+"corpo="+corpo)
+            ajax.send("nome="+nome+"&mail="+mail+"&corpo="+corpo);
         else
-            alert("Preencha os dados corretamente")
+            alert("Preencha os dados corretamente");
         return false;
     }
 </script>
@@ -39,7 +39,7 @@
         <dd><a href="http://twitter.com/projetofraguto">@projetofraguto</a></dd>
         <dt>Site:</dt>
         <dd><a href="http://fraguto.com.br">Projeto Fraguto</a></dd>
-        <dt>Ou na Globalcode</dt>
+        <dt>E visite a Globalcode</dt>
         <dd><a href="http://www.globalcode.com.br">Globalcode</a></dd>
     </dl>
 </aside>

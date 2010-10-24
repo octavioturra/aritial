@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response, get_list_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpRequest
-
+from django.utils.encoding import force_unicode
 from google.appengine.api import users
 from google.appengine.ext import db
 
@@ -13,13 +13,26 @@ from datetime import datetime
 
 from m1k7.models import *
 
+from random import random
+
 import re
 
 def fillProfile(content):
+    '''
+        fillProfile
+
+        Tratamento do perfil do usuário, primeiro preenchendo dados chave
+
+        PLAN
+
+            Traçar o perfil do usuário, bem como suas características e dados
+            para fornecer apenas conteúdo de interesse do mesmo.
+    '''
     c = Cliente()
     user = users.get_current_user()
     client = db.GqlQuery("SELECT * FROM Cliente WHERE user = :1", user)
     c = client[0]
+    content = force_unicode(content, encoding='utf-8')
     retorno = ""
     if c.nome is None:
         nome = re.findall("(?<=ou )[A-Z]\S+[^., ?]", content)
@@ -30,11 +43,11 @@ def fillProfile(content):
             if apelido:
                 c.apelido = apelido[0]
                 r = apelido[0]
-        retorno = retorno + r + ", gostei!! "
-        c.put()
-    else:
-        retorno = "Entao "+ c.nome
-    if c.idade is None:
+            retorno = retorno + r + ", gostei!! "
+            c.put()
+        else:
+            retorno = "Entao "+ c.nome
+    elif c.idade is None:
         idade = re.findall("\d{2}|\d{4}", content)
         if idade and len(idade[0])<=2:
             idade = int(idade[0])
@@ -48,8 +61,8 @@ def fillProfile(content):
         else:
             retorno = " Quantos anos você tem? "
         c.put()
-    if c.profissao is None and c.nome is not None:
-        pro = re.findall("(?<=ou )|(?<=a.o )\S+[^., ?]", content)
+    elif c.profissao is None and c.nome is not None:
+        pro = re.findall("(?<=ou )|(?<=a.o )[a-z]+[^., ?]", content)
         if pro:
             pro = pro[0]
             c.profissao = pro
@@ -57,49 +70,105 @@ def fillProfile(content):
             c.put()
         else:
             retorno = retorno + " O que faz da vida?"
-#    if c.profissao is not None and c.nome is not None and c.idade is not None:
-#        retorno = '''<br /><ul>
-#            <li>Nome: %s</li>
-#            <li>Apelido: %s</li>
-#            <li>Idade: %s</li>
-#            <li>Profissao: %s</li>
-#        </ul><small>DESCULPE, A VERSÃO DE TESTES TERMINA AQUI..ESTAMOS TRABALHANDO PARA DESENVOLVE-LA</small><a href='#contato'>Entre em contato e saiba mais.</a>''' %(c.nome, c.apelido, c.idade, c.profissao)
+    else:
+#        retorno = "Desculpe, versão de testes finalizada"
+        k = db.GqlQuery("select * from Knowledge where sender = :1", user)
+        if k.count()>0:
+            k = k[0]
+        else:
+            k = Knowledge()
+            k.sender = user
+        k.frases.append(content.encode('utf8'))
+        k.put()
+        palavra = re.findall("\S+",content.encode('utf8'))
+        retorno = "."
+#        retorno = respAritial(palavra[0])
+        i=0
+        while i<(len(palavra)-2):
+            retorno = respAritial(palavra[i])
+            i=i+1
     return retorno
 
 def getContent(request):
+    '''
+        getContent
+            Função que verifica o conteúdo do usuário, tenta converter acentos
+            (corrigir!!) e trata os valores enviados.
+            Na inicialização ela te diz oi e te pessa informações úteis.
+    '''
+    request.encoding = 'utf8'
     user = users.get_current_user()
     cliente = db.GqlQuery("SELECT * FROM Cliente WHERE user = :1",user)
     try:
         content = request.POST["content"]
-        clienteContent = "<small>%s</small><q>%s</q>" % (datetime.today(), content)
-        #value = "%s %s" % (fillProfile(content), clienteContent)
-        value = "<small>%s</small><q>%s</q><small>%s</small><q>%s</q>" % (datetime.today(), 'o que escrevi', datetime.today(), fillProfile(content))
-        #value = content
-    except:
+        content = content.encode("utf8")
+        value = "<small>%s</small><q>%s</q><small>%s</small><q>%s</q>" % (datetime.today(), content.encode('utf8'), datetime.today(), fillProfile(force_unicode(content, encoding='utf8')))
+    except Exception as e:
         if cliente[0].nome is not None:
-            value = "<small>%s</small><q>Oi %s.</q>" %(datetime.today(),cliente[0].nome)
+            value = "<small>%s</small><q>Oi %s. %s</q> " %(datetime.today(),cliente[0].nome, unicode("Desculpe, não use acentos quando for escrever, por favor...",'utf8'))
         else:
             value = "<small>%s</small><q>Oie, sou Aritial, quem &eacute; você?</q>" %(datetime.today())
     return HttpResponse(value)
 
-def study(request):
-    user = users.get_current_user()
-    k = Knowledge()
+def respAritial(palavra):
+    '''
+        respAritial
 
+        É o coração do sistema, ele verifica o conteúdo digitado
+        o conteúdo do banco de dados
+        lista e relaciona as palavras
+
+        se houver algum conteúdo semelhante
+
+        então ele entrega a frase aleatória
+    '''
+    k = db.GqlQuery("SELECT * FROM Knowledge")
+    if k[0].frases:
+        r = random()*k.count()*1
+        while r>k.count():
+            r = random()*k.count()*1
+        r = int(r)
+        i = random()*len(k[r].frases)
+        while i>len(k[r].frases):
+            i = random()*len(k[r].frases)
+        i = int(i)
+        try:
+            retorno = k[r].frases[i].encode("utf8")
+        except:
+            retorno = k[0].frases[i].encode("utf8")
+        return retorno
+        for x in range(0,i):
+            if re.findall(palavra.encode('utf8'),k[0].frases[x].encode('utf8')):
+                return k[0].frases[x].encode('utf8')
+    else:
+        return " Desculpe, não entendi..."
+
+def study(request):
+    '''
+        study
+
+        Função de estudo que desmembra arquivo TXT e adiciona à base de conhecimento
+        do Aritial, bem como o guarda na biblioteca do sistema.
+    '''
+    user = users.get_current_user()
     l = KnowLib()
+    if not re.match('.*\.txt',request.FILES['livro'].name):
+        return HtmlResponse("Favor apenas enviar arquivos txt <a href='/#aritial'>Voltar</a>")
     content = request.FILES['livro'].read()
     l.value = db.Blob( content )
     l.put()
-
-    frases = re.findall("[^\.\,\?]\S+[^\.\?]+.",content)
+    frases = re.findall("[^.,?][A-Z][a-z]+[^\.\?]+.",content)
+    fraseList = []
+    i = 0
     if frases:
+        while fraseList.__sizeof__()<150:
+            i=i+1
+            fraseList.append(unicode(frases[i],'utf8'))
+        k = Knowledge()
+        k.frases = fraseList
         k.sender = user
-        i = 0
-        for item in frases:
-            i = i+1
-            if i>50:
-                break
-            k.frase = unicode(item, 'utf8')
-            k.put()
-    return HttpResponseRedirect("/#aritial")
-#    return HttpResponse()
+        k.put()
+        cont = 1
+    else:
+        cont = 0
+    return HttpResponseRedirect("#aritial")
